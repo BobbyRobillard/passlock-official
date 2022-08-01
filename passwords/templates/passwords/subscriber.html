@@ -1,0 +1,48 @@
+{% extends 'django_project/base.html' %}
+
+{% block content %}
+  <div class="main">
+    <h3>{{ subscriber }}</h3>
+    <div class="row">
+    {% for password in subscriber.get_passwords %}
+        <div class="col-xs-6 col-sm-4 col-md-3">
+          <div class="card">
+            {{ password }}<br><br>
+            <div class="row">
+              <div class="col-9">
+                <h6># Attempted Retrieves</h6>
+              </div>
+              <div class="col">
+                {{ password.number_of_attempted_retrieves }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-9">
+                <h6># Retrieves</h6>
+              </div>
+              <div class="col">
+                {{ password.number_of_retrieves }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-9">
+                <h6># Instant Unlocks</h6>
+              </div>
+              <div class="col">
+                {{ password.number_of_instant_unlocks }}
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col">
+        <a href="{% url 'passwords:overview' %}">
+          <button type="button" class="btn btn-danger">Back to Overview</button>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

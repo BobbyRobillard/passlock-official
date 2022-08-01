@@ -1,0 +1,53 @@
+{% extends 'django_project/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% include 'django_project/server_messages.html' %}
+<link href="{% static 'django_project/css/login.css' %}" rel="stylesheet">
+<br><br>
+<div class="row text-center main">
+  <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+    <div class="card">
+      <form id="recaptcha-form" action="#" method="post">
+        {% csrf_token %}
+
+        {% for error in form.non_field_errors %}
+            <p class="error-item">{{ error|escape }}</p>
+        {% endfor %}
+
+        {% if form.username.errors|first %}
+          <p class="error-item">{{ form.username.errors|first }}</p>
+        {% endif %}
+        <h6>Email</h6>
+        {{ form.username }}<br>
+
+        {% if form.password.errors|first %}
+          <p class="error-item">{{ form.password.errors|first }}</p>
+        {% endif %}
+        <h6>Password</h6>
+        {{ form.password }}<br>
+
+        <div>
+          <script src='https://www.google.com/recaptcha/api.js'></script>
+          <div class="g-recaptcha" data-sitekey="6LckXSsaAAAAADuESvOfiajBN3HZhCAdDahB3y4a"></div>
+        </div>
+        <button type="submit" class="btn btn-primary col-12 submit">Sign In</button>
+      </form>
+      <br>
+      <p class="mb-1 text-center white">
+        <a href="{% url 'password_reset' %}" class="white">(I forgot my password)</a>
+      </p>
+    </div>
+
+    <h3 class="text-center register-title">Need An Account?</h3>
+    <button type="submit" class="btn btn-primary action-link new-account-btn" href="{% url 'core:register' %}">Create Account</button>
+
+  </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+  <script src="{% static 'django_project/js/hide-add-password.js' %}"></script>
+{% endblock js %}

@@ -1,0 +1,14 @@
+[
+{
+    "model": "passwords.subscriber",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "sign_up_date": "2021-01-13",
+        "customer_token": null,
+        "payment_method_token": null,
+        "subscription_token": null,
+        "subscription_active": false
+    }
+}
+]

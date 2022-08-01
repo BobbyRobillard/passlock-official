@@ -1,0 +1,184 @@
+{% extends 'django_project/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'passwords/css/homepage.css' %}">
+
+    {% include 'django_project/server_messages.html' %}
+
+    {% if subscriber.free_trial_active %}
+        <div class="row free-trial">
+          <div class="col">
+            <h6 class="text-center">
+              You have <text class="white"><b>{{ subscriber.get_num_free_trial_days }} days</b></text> left on your free trial, at any time you can <a href="{% url 'passwords:subscribe' %}">SUBSCRIBE NOW</a>
+              <img src="{% static 'django_project/images/help-circle.svg' %}" data-toggle="tooltip" title="After your one-month free trial ends, service costs $0.99 a month :)">
+            </h6>
+          </div>
+        </div>
+    {% endif %}
+
+    <!-- PASSWORDS -->
+    <div class="row passwords-container">
+      {% for password in passwords %}
+      <div class="col-xl-3 col-lg-4 col-sm-6 password" name="{{ password.get_name }}" time="{{password.challenge_time}}" passID="{{password.id}}">
+        <div class="password-inner">
+          <div class="row">
+            <div class="col-2" >
+              <div id="circle"></div>
+            </div>
+            <div class="col">
+              {% ifequal password.challenge_time  1 %}
+                <h6>{{ password.challenge_time }} Minute</h6>
+              {% else %}
+                <h6>{{ password.challenge_time }} Minutes</h6>
+              {% endifequal %}
+              <h5>{{ password.get_name }}</h5>
+              <img src="{% static 'django_project/images/unlock.svg' %}" class="svg-icon password" name="{{ password.get_name }}" time="{{password.challenge_time}}" passID="{{password.id}}" data-toggle="tooltip" title="Retrieve Password!">
+              {% if password.instant_unlock_enabled %}
+                <img src="{% static 'django_project/images/zap.svg' %}" class="svg-icon action-link unlock" href="{% url 'passwords:instant_unlock' pk=password.pk %}" data-toggle="tooltip" title="Instant Unlock Password!">
+                <img src="{% static 'django_project/images/edit.svg' %}" class="svg-icon action-link" href="{% url 'passwords:update_password' pk=password.pk %}" data-toggle="tooltip" title="Edit Password!">
+              {% else %}
+                <img src="{% static 'django_project/images/zap-disabled.svg' %}" class="svg-icon" data-toggle="tooltip" title="Instant Unlock Disabled For This Password!">
+                <img src="{% static 'django_project/images/edit.svg' %}" class="svg-icon action-link" href="{% url 'passwords:update_password_no_instant' pk=password.pk %}" data-toggle="tooltip" title="Edit Password!">
+              {% endif %}
+              <img src="{% static 'django_project/images/trash.svg' %}" class="svg-icon action-link" href="{% url 'passwords:delete_password' pk=password.pk %}" data-toggle="tooltip" title="Delete Password!">
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor%}
+    </div>
+    <!-- END PASSWORDS -->
+
+    <!-- TIPS -->
+    <div id="tips" class="carousel slide text-center" data-ride="carousel" data-interval="10000">
+      <!-- The slideshow -->
+      <div class="carousel-inner white">
+        <div class="carousel-item active">
+          <b>Step 1: Store a new password</b>
+          <br><br>
+          <span class="thin">
+            Using a browser blocker of your choosing, avoid sites you don't want to use like YouTube, adult websites, or apps on your phone.
+            Make the password to your blocker a long list of random characters you won't remember,
+            then click the new password button in the corner of this page and store it. For example, you can name it "youtube blocker",
+            password to store: "dv46&ap28@", and set a long retrieval time like 30 minutes to deter you from retrieving it.”
+          </span>
+          <br><br>
+          <a href="https://thepasslock.com/tips/" target="_blank" rel="noopener noreferrer" class="white thin">(Advanced Tips)</a>
+          <br>
+        </div>
+        <div class="carousel-item">
+          <b>Step 2: Password Retrieval</b>
+          <br><br>
+          <span class="thin">
+            Now that you've stored a password, let's retrieve it! Click the unlock button on the
+            "Demo Password" box and go through it (this has a shorter retrieval time for demo purposes compared to the password you just stored).
+            Now that you know how to retrieve, you should be able to go many weeks without relapsing because you
+            don't remember the password to your browser blocker, and you definitely don't want to go through our tedious process to retrieve it.
+            But if at some point in the future you need to get the password back for something important, you're able to.
+          </span>
+          <br><br>
+          <a href="https://thepasslock.com/tips/" target="_blank" rel="noopener noreferrer" class="white thin">(Advanced Tips)</a>
+          <br>
+        </div>
+        <div class="carousel-item">
+          <b>Summary</b>
+          <br><br>
+          <span class="thin">
+            Use a site or app blocker of your choice to block things you don't want to use like YouTube,
+            adult websites, games, etc. Use a long random password you'll never remember and store it here with a long estimated retrieval time.
+            For many weeks/months, you won't relapse since your app or browser blocker is keeping you in check,
+            and you won't want to do the tedious task in Passlock to retrieve its password.
+            One day, if you need the password for something important, you can go through the tedious retrieval to get it back.
+            No need to riskily toss out passwords entirely and no need to rely on others to keep it for you. Take back full control.
+          </span>
+          <br><br>
+          <a href="https://thepasslock.com/tips/" target="_blank" rel="noopener noreferrer" class="white thin">(Advanced Tips)</a>
+          <br>
+        </div>
+      </div>
+
+      <!-- Indicators -->
+      <ul class="carousel-indicators">
+        <li data-target="#tips" data-slide-to="0" class="active"></li>
+        <li data-target="#tips" data-slide-to="1"></li>
+        <li data-target="#tips" data-slide-to="2"></li>
+      </ul>
+
+    </div>
+    <!-- END TIPS -->
+
+    <!-- Challenge Modal -->
+    <div class="modal" id="challenge-modal">
+      <div class="modal-dialog">
+        <div class="modal-content white">
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <button type="button" class="close white" data-dismiss="modal">&times;</button>
+            <h5 id="password-name">Retrieve A Password</h5>
+            <h6 id="warning"><img class="circle-img" src="{% static 'django_project/images/alert-circle.svg' %}"> Incorrect answers reduce your solves!</h6>
+            <div id="progress" class="white"></div>
+            <div id="challenge-body">
+              <br>
+              <span id="error-text"></span>
+              How many times does
+              <b><span id="unique-number"></span></b> appear in the following:<br>
+              <div id="number-sequence"></div> <br><br>
+              <input type="number" id="solution" placeholder="Your answer" autofocus>
+              <button type="button" class="btn btn-primary modal-btn" id="submit-solution">Submit</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- End Challenge Modal -->
+
+    <!-- Add Password Modal -->
+    {% include 'passwords/add_password_modal.html' %}
+    <!-- End Add Password Modal -->
+
+    <!-- Instant Unlock Modal -->
+    <div class="modal" id="unlock-modal">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <!-- Modal body -->
+              <div class="modal-body">
+                <button type="button" class="close white" data-dismiss="modal">&times;</button>
+                <h3>Instant Unlock Password </h3>
+                <br>
+                <div class="row">
+                  <div class="col text-center">
+                    <img src="{% static 'django_project/images/zap.svg' %}" class="instant-unlock-modal-icon">
+                    <br><br>
+                    <h6 class="text-center">
+                      This will instantly unlock your password. The card we have on file for you will be charged <span class="money">${{quick_retrieval_amount}}</span> for this.
+                      <text class="white" data-toggle="tooltip" title="This option exists in case you need access to a password immediately to do some productive, time-critical task. However, the cost is high so that you aren't tempted to use it if you have an unproductive urge.">(Why?)</text>
+                    </h6>
+                  </div>
+                </div>
+                <br>
+                <form id="unlock-confirm-form" action="#" method="POST">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary col-12">Unlock Now</button>
+                </form>
+                <br>
+                <hr>
+                <div class="text-center">
+                  <h6 class="text-center white">A portion of proceeds go towards</h6>
+                  <a href="https://www.redcross.org/" target="_blank" rel="noopener noreferrer">
+                    <img src="{% static 'django_project/images/red-cross.png' %}" class="donation-img">
+                  </a>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    <!-- End Instant Unlock Modal -->
+{% endblock content %}
+
+{% block js %}
+  <script src="{% static 'django_project/js/challenge.js' %}"></script>
+{% endblock js %}

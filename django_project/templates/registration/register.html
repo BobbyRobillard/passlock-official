@@ -1,0 +1,61 @@
+{% extends 'django_project/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <link href="{% static 'django_project/css/register.css' %}" rel="stylesheet">
+
+    {% include 'django_project/server_messages.html' %}
+
+    <div class="row main register-container">
+      <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+
+        <h3 class="text-center">Signup For <b>FREE</b>!</h3>
+
+        <div class="card">
+          <form action="{% url 'core:register' %}" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+              {% if field.errors|first %}
+                <p class="error-item">{{ field.errors|first }}</p>
+              {% endif %}
+              <h6>{{ field.label }}</h6>
+              {{ field }}
+            {% endfor %}
+            <br>
+            <div class="text-center">
+              <p href="https://thepasslock.com/app-terms-conditions/" class="white text-center terms" target="_blank" rel="noopener noreferrer">
+                <i class="far fa-hand-point-right"></i> Passlock Terms & Conditions
+              </p>
+              <div>
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+                <div class="g-recaptcha" data-sitekey="6LckXSsaAAAAADuESvOfiajBN3HZhCAdDahB3y4a"></div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary col-12 submit">Register</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Terms & Conditions Modal -->
+    <div class="modal" id="terms-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal body -->
+          <div class="modal-body text-center">
+            <iframe src="https://thepasslock.com/terms-conditions/" width="400" height="700"></iframe>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- Terms & Conditions Modal -->
+
+{% endblock content %}
+
+{% block js %}
+  <script src="{% static 'django_project/js/hide-add-password.js' %}"></script>
+{% endblock js %}

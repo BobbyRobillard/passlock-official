@@ -1,0 +1,322 @@
+:root {
+  --main-color: black;
+  --secondary-color: #242426;
+  --primary-color: #08f;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin: 0 0 100px;
+}
+footer {
+    background-color: #242426 !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 2% 10% 1% 10%;
+    width: 100%;
+    margin-top:50px;
+    overflow:hidden;
+}
+
+.register-container, .users-card, .new-account-btn, .profile-main, .delete-container {
+  margin-bottom: 100px;
+}
+
+.down {
+  margin-top:10px;
+}
+
+.move-left {
+  margin-left: -45%;
+}
+
+#instant-unlock-question {
+  position: relative;
+  top: -10px !important;
+}
+
+#tips {
+  margin-top: 5%;
+}
+
+.donation-img {
+    max-width: 100px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+hr {
+  border-top: 1px solid #919199;
+}
+
+.thin {
+  font-weight: 200 !important;
+}
+
+.carousel-inner {
+  padding-bottom: 50px !important;
+}
+
+.free-trial {
+  color: yellow;
+}
+
+.active-subscription {
+  color: green;
+}
+
+.error-item, .inactive-subscription {
+  color: red;
+}
+
+.register-title {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.navbar {
+  background-color: #242426 !important;
+}
+
+.navbar-inner {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #303033;
+  border: 0px;
+  color: white;
+  padding: 5px 5px 5px 10px;
+  margin-bottom: 16px;
+}
+
+input[type=checkbox] {
+  height: 25px;
+}
+
+h3 {
+  margin: 16px 16px 32px 0px;
+  font-size: 30px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.6px;
+  text-align: left;
+  color: #ffffff;
+}
+
+h6 {
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.52px;
+  text-align: left;
+  color: #919199;
+}
+
+body {
+  background-color: #18181a;
+}
+
+.add-password-btn {
+  padding: 10px;
+}
+
+.card {
+  background-color: #242426 !important;
+  padding: 25px !important;
+  color: white;
+}
+
+.password-inner {
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  background-color: #242426 !important;
+  color: white;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.btn-primary {
+  border-radius: 4px;
+  background-color: #3377ff !important;
+  padding: 15px 15px 15px 15px;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.feedback-btn {
+   padding: 8px;
+}
+
+.btn-danger {
+  border-radius: 4px;
+  padding: 15px 15px 15px 15px;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+#main_row {
+  margin-top:15px;
+}
+
+.modal-content {
+  background-color: #242426 !important;
+  padding: 24px 24px 24px 24px;
+  border-radius: 10px;
+}
+
+.nav-icon {
+  margin-top: 17px;
+  max-width: 25px;
+  margin-left: 25px !important;
+}
+
+.fa-home, .fa-user, .fa-sign-out-alt {
+  color: #d0d2d6;
+  margin-top: 10px;
+}
+
+.logo {
+  max-width: 200px;
+}
+
+.navbar-mobile {
+  display: none;
+}
+
+.user-icon {
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.mobile-nav-icon {
+  width: 40px;
+  margin-top: 25px;
+}
+
+.add-password {
+  margin-top: -100px;
+}
+
+.svg-icon {
+  margin-right: 10px;
+}
+
+div > .alert {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.white {
+  color: white !important;
+}
+
+.submit {
+  margin-top: 16px;
+}
+
+html, body, div, p, input, h3, h6 {
+  font-family: 'Inter' !important;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter' !important;
+}
+
+/* MOBILE SETTINGS */
+@media only screen and (max-width: 500px) {
+  .navbar {
+    display: none;
+  }
+
+  .navbar-mobile {
+    display:inline;
+  }
+
+  .svg-icon {
+    margin-right: 20px;
+    margin-top:6px;
+  }
+
+  .modal {
+    margin-top: 100px;
+  }
+
+  #challenge-modal {
+    margin-top: 250px;
+  }
+
+  .add-password {
+    margin-top: 28px;
+  }
+
+  .free-trial {
+    margin-bottom:25px;
+  }
+
+  .g-recaptcha {
+    transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;
+  }
+
+  #tips {
+    margin-bottom: 125px;
+  }
+
+  .down {
+    margin-bottom: 25px;
+    text-align: center;
+  }
+}
+/* END MOBILE SETTINGS */
+
+@media only screen and (max-width: 1430px) and (min-width:1200px) {
+  .g-recaptcha {
+    transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .add-password {
+    margin-top: 10px;
+  }
+}
+
+.main {
+  padding: 3% !important;
+}
+
+#add-Password > h6:nth-of-type(4) {
+  color: white !important;
+}

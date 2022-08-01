@@ -1,0 +1,24 @@
+# Vagrant Settings
+.vagrant
+*.log
+/build
+
+# Database
+/data
+
+# Django Data
+/static
+/media
+
+# OS Related
+.DS_Store
+
+# Python Files
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Virtual Env
+/venv
+
+*secrets.json

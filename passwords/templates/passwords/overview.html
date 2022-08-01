@@ -1,0 +1,111 @@
+{% extends 'django_project/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<br><br>
+<div class="row">
+  <div class="col">
+    <h3>User Information</h3>
+    <div class="card">
+      <div class="row">
+        <div class="col-9">
+          <h6># Free Trial Users:</h6>
+        </div>
+        <div class="col">
+          {{ num_free_trial }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <h6># Unsubscibed Users:</h6>
+        </div>
+        <div class="col">
+          {{ unsubscribed }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <h6># Subscribed Users:</h6>
+        </div>
+        <div class="col">
+          {{ subscribed }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <h3>Password Information</h3>
+    <div class="card">
+      <div class="row">
+        <div class="col-9">
+          <h6># Passwords Stored:</h6>
+        </div>
+        <div class="col">
+          {{ num_passwords }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <h6># Instant Unlocks:</h6>
+        </div>
+        <div class="col">
+          {{ instant_unlocks }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <h6># Passwords Retrieved:</h6>
+        </div>
+        <div class="col">
+          {{ number_of_retrieves }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <h6># Attempted Password Retrieved:</h6>
+        </div>
+        <div class="col">
+          {{ number_of_attempted_retrieves }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row users-card">
+  <div class="col">
+    <h3>Users in the System</h3>
+    <div class="row">
+      <div class="col">
+        <p class="inactive-subscription">Inactive</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="free-trial">On Free Trial</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="active-subscription">Active</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="row">
+        {% for subscriber in subscribers %}
+        <div class="col-xs-6 col-sm-4 col-md-2">
+          {% if subscriber.free_trial_active %}
+            <a class="free-trial" href="{% url 'passwords:view_user' pk=subscriber.pk %}">{{ subscriber }}</a>
+          {% elif not subscriber.subscription_active %}
+            <a class="inactive-subscription" href="{% url 'passwords:view_user' pk=subscriber.pk %}">{{ subscriber }}</a>
+          {% else %}
+            <a class="active-subscription" href="{% url 'passwords:view_user' pk=subscriber.pk %}">{{ subscriber }}</a>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

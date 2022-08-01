@@ -1,0 +1,8 @@
+@media only screen and (max-width: 500px) {
+  .mobile-nav-icons {
+    display: none;
+  }
+  .main {
+    margin-top: -50px !important;
+  }
+}

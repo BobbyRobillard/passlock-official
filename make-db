@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Main DB Setup
+createdb passlock
+psql -c "create role passlock with password 'CameSound11';"
+psql -c "grant all privileges on database passlock to passlock;"
+psql -c "ALTER ROLE passlock SET client_encoding TO 'utf8';"
+psql -c "ALTER ROLE passlock SET default_transaction_isolation TO 'read committed';"
+psql -c "ALTER ROLE passlock SET timezone TO 'US/Eastern';"
+psql -c "ALTER ROLE passlock with LOGIN;"
+
+# Role for creating test dbs
+psql -c "ALTER USER passlock with CREATEDB;"

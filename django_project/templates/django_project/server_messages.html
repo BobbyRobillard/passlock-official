@@ -1,0 +1,22 @@
+<!-- Server Messages to User -->
+<div class="col-12 text-center">
+  {% if messages %}
+      {% for message in messages %}
+          {% if "error" in message.level_tag %}
+          <div class="alert alert-danger">
+              <text {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                  {{ message }}
+              </text>
+          </div>
+          {% else %}
+          <div class="alert alert-success">
+              <text {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                  {{ message }}
+              </text>
+          </div>
+          {% endif %}
+      {% endfor %}
+  {% else %}
+  <br />
+  {% endif %}
+</div>

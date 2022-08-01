@@ -1,0 +1,81 @@
+#unique-number {
+  font-weight: bold;
+  font-size: 125%;
+}
+
+.col-1 {
+  padding-bottom: 10px;
+}
+
+.instant-unlock-modal-icon {
+  width: 15%;
+}
+
+.money {
+  font-weight: bold;
+  color: green;
+}
+
+#number-sequence {
+  padding-top: 15px;
+}
+
+#circle {
+  width: 10px;
+  height: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background: red;
+  margin-top: 5px;
+  text-align: right;
+  float: right;
+}
+
+.circle-img {
+  max-width: 25px;
+}
+
+.bigger {
+  max-width: 75px;
+}
+
+.circle-text {
+  margin-top:25px;
+  margin-bottom:12px;
+  text-transform:lowercase;
+}
+
+h5 {
+  color: white;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.passwords-container {
+  padding-top: 2%;
+}
+
+.password {
+  padding-right: 5px;
+}
+
+.close {
+  float: right;
+  color: white;
+}
+
+#quit {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+#warning {
+  margin-top:25px;
+  margin-bottom:12px;
+}
+
+#id_challenge_time {
+  padding: 10px;
+  border-radius: 4px;
+}

@@ -1,0 +1,83 @@
+{% extends 'django_project/base.html' %}
+
+{% load static %}
+
+{% block content %}
+{% include 'django_project/server_messages.html' %}
+<link href="{% static 'django_project/css/profile.css' %}" rel="stylesheet">
+
+<div class="row profile-main">
+
+  <div class="col">
+    <h3 class="profile-h3">Billing Info</h3>
+    <div class="card">
+        <h6>Manage Billing</h6>
+        <br>
+        {% if subscriber.subscription_active %}
+        <form method="POST" action="{% url 'create_customer_portal_session' %}">
+            {% csrf_token %}
+            <br>
+            <button type="submit" class="btn btn-primary btn-sm">Manage billing</button>
+        </form>
+        {% else %}
+        <form method="GET" action="{% url 'passwords:subscribe' %}">
+            <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+        </form>
+        {% endif %}
+        <br>
+
+        <h6>SUBSCRIPTION STATUS</h6>
+        {% if subscriber.subscription_active %}
+          <text class="alt-text">Subscribed</text>
+        {% else %}
+          <text class="alt-text">Unsubscribed</text>
+        {% endif %}
+        <br>
+        <h6>NEXT BILL DATE</h6>
+        {% if subscriber.subscription_active %}
+          <text class="alt-text">{{ subscriber.get_next_payment_date }}</text>
+        {% else %}
+          <text class="alt-text">Never</text>
+        {% endif %}
+        <br>
+        <h6>FREE TRIAL STATUS</h6>
+        {% if subscriber.free_trial_active %}
+          <text class="alt-text">Is Active, and ends: {{ subscriber.get_free_trial_end_date }}</text>
+        {% else %}
+          <text class="alt-text">Has Ended</text>
+        {% endif %}
+        <br>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3 class="profile-h3">User Settings</h3>
+    <div class="card">
+      <form action="{% url 'update_user_email' %}" method="post">
+          {% csrf_token %}
+          <h6>Email Address</h6>
+          {{ email_form.email }}<br><br>
+          <button type="submit" class="btn btn-primary btn-sm">Update Email</button>
+      </form>
+      <br>
+      <form action="{% url 'update_user_password' %}" method="post">
+        {% csrf_token %}
+        {% for field in password_form %}
+          {% if field.errors %}
+            <p class="error-item">{{ field.errors|first }}</p>
+          {% endif %}
+          <h6>{{ field.label }}</h6>
+          {{ field }}<br />
+        {% endfor %}<br>
+        <button type="submit" class="btn btn-primary btn-sm">Change Password</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<!-- Add Password Modal -->
+{% include 'passwords/add_password_modal.html' %}
+<!-- End Add Password Modal -->
+
+{% endblock content %}

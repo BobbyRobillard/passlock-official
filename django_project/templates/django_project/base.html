@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Password Locker</title>
+  <link rel="icon" href="{% static 'django_project/images/logo-white-bg.jpg' %}">
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- Animations -->
+  <link rel="stylesheet" href="{% static 'django_project/css/animate.css' %}">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="{% static 'django_project/css/style.css' %}">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVDRT11MF2"></script>
+  <script src="{% static 'django_project/js/ga.js' %}"></script>
+  <script src="{% static 'django_project/js/reddit.js' %}"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <!-- Mobile NAVBAR -->
+    <div class="row navbar-mobile text-center">
+    <div class="col navbar-mobile-inner text-center">
+      <img src="{% static 'django_project/images/password-locker-logo-no-bg.png' %}" class="logo action-link" href="/">
+      <div class="row">
+          <div class="col-3">
+            <img src="{% static 'django_project/images/plus.svg' %}" class="mobile-nav-icon add-password add-password-mobile" data-toggle="tooltip" title="Add Password">
+          </div>
+          <div class="col-3">
+            <img src="{% static 'django_project/images/user.svg' %}" class="action-link mobile-nav-icon" href="{% url 'profile' %}" data-toggle="tooltip" title="Edit Your Profile">
+          </div>
+          <div class="col-3">
+            <a href="https://thepasslock.com/docs/unlocking-passwords/basic-overview/" target="_blank" rel="noopener noreferrer">
+              <img src="{% static 'django_project/images/help-circle.svg' %}" class="action-link mobile-nav-icon" href="https://thepasslock.com/docs/unlocking-passwords/basic-overview/" data-toggle="tooltip" title="Help & Terms of Use" target="_blank" rel="noopener noreferrer">
+            </a>
+          </div>
+          <div class="col-3">
+            <img src="{% static 'django_project/images/log-out.svg' %}" class="action-link mobile-nav-icon" href="{% url 'core:logout' %}" data-toggle="tooltip" title="Log Out">
+          </div>
+      </div>
+    </div>
+  </div>
+    <!-- END Mobile NAVBAR -->
+
+    <!-- NAVBAR -->
+    <div class="row navbar">
+      <div class="col-10 offset-1 navbar-inner">
+        <div class="row">
+          <div class="col-5">
+            <img src="{% static 'django_project/images/home.svg' %}" class="action-link nav-icon" href="/" data-toggle="tooltip" title="Home">
+            <a href="{% url 'profile' %}">
+              <img src="{% static 'django_project/images/user.svg' %}" class="nav-icon" data-toggle="tooltip" title="Edit Your Profile">
+            </a>
+            <a href="https://thepasslock.com/docs/unlocking-passwords/basic-overview/" target="_blank" rel="noopener noreferrer">
+              <img src="{% static 'django_project/images/help-circle.svg' %}" class="nav-icon" data-toggle="tooltip" title="Help & Terms of Use">
+            </a>
+            <img src="{% static 'django_project/images/log-out.svg' %}" class="action-link nav-icon" href="{% url 'core:logout' %}" data-toggle="tooltip" title="Log Out">
+          </div>
+          <div class="col-2 text-center">
+            <img src="{% static 'django_project/images/password-locker-logo.jpg' %}" class="logo">
+          </div>
+          <div class="col-5 text-right">
+            <button type="button" class="btn btn-primary add-password add-password-btn"><i class="fa fa-plus new-password"></i> New Password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END NAVBAR -->
+
+    <!-- MAIN DYNAMIC CONTENT -->
+    <div class="row" id="main-row">
+      <div class="col-lg-10 offset-lg-1">
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </div>
+    <!-- END MAIN DYNAMIC CONTENT -->
+
+  </div>
+
+  <footer>
+     <div class="row">
+       <div class="col-xs-12 col-sm-7 white">
+         <h5 class="down">© PassLock 2021</h5>
+       </div>
+       <div class="col-xs-12 col-sm-5">
+         <form action="{% url 'passwords:send_feedback' %}" method="post">
+           {% csrf_token %}
+           <div class="row">
+             <div class="col-xs-12 col-sm-9">
+               <input type="text" name="message" placeholder="Leave A Comment...">
+             </div>
+             <div class="col-xs-12 col-sm-3">
+               <button type="submit" class="btn btn-primary feedback-btn col-12">Send</button>
+             </div>
+           </div>
+         </form>
+       </div>
+     </div>
+  </footer>
+  <!-- Custom JS -->
+  <script src="{% static 'django_project/js/main.js' %}"></script>
+  <script src="{% static 'django_project/js/mouseflow.js' %}"></script>
+  {% block js %}
+  {% endblock js %}
+</body>
+</html>
